@@ -108,6 +108,72 @@ section {
   margin-bottom: 2.5rem;
 }
 
+#main-container {
+  position: relative;
+}
+
+#close-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Roboto Mono', sans-serif;
+  cursor: pointer;
+  font-size: 3rem;
+  position: absolute;
+  top: -1rem;
+  right: 1rem;
+}
+
+#fumen-input {
+  width: 100%;
+  height: 10rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  font-family: 'Roboto Mono', sans-serif;
+}
+
+#fumen-input.warning {
+  border: 1px solid #EF624D;
+}
+
+.go-button {
+  background-color: #EF9536;
+  border-color: #EF9536;
+  color: #fff;
+  border-radius: 0;
+  border-style: solid;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  font-family: 'Roboto Mono', sans-serif;
+  cursor: pointer;
+}
+
+.fumen-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.fumen-container .setup {
+  flex-basis: 25%;
+}
+
+.fumen-container .setup p {
+  /* font-weight: 600; */
+  font-size: 1.142857rem;
+  max-width: 85%;
+  min-width: 85%;
+
+  min-height: 65px;
+  background-color:rgba(0, 0, 0, 0.1);
+  padding: 0.25rem 0.5rem;
+  margin-top: 0;
+
+}
+
 .setup-list {
   display: flex;
   flex-direction: row;

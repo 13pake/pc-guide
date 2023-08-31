@@ -68,6 +68,7 @@ class MinoBoard extends HTMLElement {
         if (fumen) {
             const pages = decoder.decode(fumen);
             let newField = pages[0].field.str({ garbage: 0 });
+            // console.log(newField)
 
             const tenUnderscores = '_'.repeat(10);
             if (newField.replaceAll('\n', '').length == 10) {

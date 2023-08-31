@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Fumen Viewer | PC Guide</title>
+  <script src="../mino-board.js" type="text/javascript"></script>
+  <script src="../tetris-fumen.js" type="text/javascript"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto Mono:400,700,i' rel='stylesheet'>
+  <link href="../styles.css" rel="stylesheet">
+  </link>
+  <script>let __LOAD = performance.now();</script>
+</head>
+
+<body>
+  <noscript>
+    <p>This page uses JavaScript to render diagrams.</p>
+  </noscript>
+
+  <main data-mirror='false'>
+
+    <div class="container" id="main-container">
+      <h1 id="title">Fumen Viewer</h1>
+      <button id="close-button" onclick="clickCloseButton()">×</button>
+      <!-- <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> -->
+    </div>
+
+  </main>
+  <script>
+    function load() {
+      console.log(`load time: ${performance.now() - __LOAD}`);
+    }
+
+    window.addEventListener('load', load);
+  </script>
+  <script>
+
+    function clickCloseButton() {
+      window.location.href = window.location.href.split("?")[0];
+    }
+
+    const { decoder, encoder } = require('tetris-fumen');
+    // const url = '?D115@KhglFeg0ilR4wwCei0R4ywLeAgWKA0intCFbU9AOnB?AAVgh0R4BewwCeg0R4glg0ywR4g0ili0R4UeilAtCewwBeA?PxwAtxSAexwglxhAeQawDRawShlJeAg0YAsn88ADoo2AKd8?8ADoo2AzC7rDFbEwCVghHxDBeQLCegHxDgWgHSLxDgHiWiH?xDKeQ4IexwgWgHCeQLR4AtAegWQawhQagWhlAeRaAeQaAeR?aMeAg0WAPd88AwfmGBFLHSASITeD2488AQOBAA9gwDIeRag?0Beg0glAexDwSAPwhhlQpQahWQpxSwhglg0QpQaAeQpgWJe?Ag0WAKd88AQhmGBFLHSASITeD2488AQOBAALgwhIewhglQ4?CewwCewhglR4g0ywR4whhlQ4i0R4TewhgHQagHBehWAeg0w?hhlQaQLwSgWwwglwhAPwSQaRLgWwhwwAtxhJeAg05Apn88A?QZrhESWTNEsoo2AsvjFDFbcRASx78AwtrSASYTPCToo2AX+?bTAyE88AwMkkEloo2A0AAAALgQaIewwAtAeQ4wwAeQLBeyw?AeQLQaAeRahWwwBeQLQahHxSwwSeQag0whR4wwAPBegHAtw?hhlAexhBeQaAtg0CewhBehHAtJeAg0bAUd88Awn4KBFbEwC?aow2BFbsYEBSVTASIqBAVghHxDQLDeQLgHxDgWRLBPRLgHi?WQLBeBPQLTehHxDQLAeh0Q4glgHxDgWRLQaAeglwSgHiWQL?wDQahlwSJeAg0RAFSNXEZ/74Du788Awn0aEFBAAA';
+    const url = window.location.href;
+    const fumenMatch = url.match(/115@.*/g); // only v115
+
+    const mainContainer = document.getElementById('main-container');
+    
+    if (fumenMatch) {
+      const fumen = 'v' + fumenMatch[0]; // add 'v' for 'v115'
+      const pages = decoder.decode(fumen);
+      
+      const parentDiv = document.createElement('div');
+      parentDiv.setAttribute('class', 'fumen-container');
+
+      mainContainer.appendChild(parentDiv);
+
+      if (pages[0].comment) {
+        document.getElementById('title').innerText = `${pages[0].comment}`;
+      }
+
+      // split fumen pages
+      pages.forEach(page => {
+        const singleFumen = encoder.encode([ page ]);
+
+        const div = document.createElement('div');
+        div.setAttribute('class', 'setup');
+        parentDiv.appendChild(div);
+
+        const minoBoard = document.createElement('mino-board');
+        minoBoard.setAttribute('fumen', singleFumen);
+        div.appendChild(minoBoard);
+        
+        const p = document.createElement('p');
+        p.innerText = page.comment;
+        div.appendChild(p);
+      });
+
+    } else {
+      console.log('Fumen not found');
+
+      // hide close button
+      document.getElementById('close-button').style.display = 'none';
+
+      const textarea = document.createElement('textarea');
+      textarea.setAttribute('id', 'fumen-input');
+      mainContainer.appendChild(textarea);
+
+      const goButton = document.createElement('button');
+      goButton.setAttribute('class', 'go-button');
+      goButton.innerText = 'Go';
+      mainContainer.appendChild(goButton);
+
+      goButton.addEventListener('click', (event) => {
+        const textareaValue = document.getElementById('fumen-input').value;
+        const textareaMatch = textareaValue.match(/115@.*/g);
+
+        if (textareaMatch) {
+        window.location.href += '?v' + textareaMatch[0];
+        } else {
+        document.getElementById('fumen-input').setAttribute('class', 'warning');
+        }
+
+      });
+
+    }
+
+    
+
+  </script>
+</body>
+
+</html>
