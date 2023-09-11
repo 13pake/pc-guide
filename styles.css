@@ -155,23 +155,39 @@ section {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
+  gap: 1rem;
+}
+
+.fumen-container mino-board>svg {
+  margin: 0;
 }
 
 .fumen-container .setup {
-  flex-basis: 25%;
+  /* flex-basis: 25%; */
 }
 
-.fumen-container .setup p {
+.fumen-container .setup div {
   /* font-weight: 600; */
   font-size: 1.142857rem;
-  max-width: 85%;
-  min-width: 85%;
+  width: 200px;
 
   min-height: 65px;
   background-color:rgba(0, 0, 0, 0.1);
-  padding: 0.25rem 0.5rem;
-  margin-top: 0;
+  /* padding: 0.25rem 0.5rem; */
+  /* margin-top: 0; */
 
+}
+
+.draggable {
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  /* border: 1px solid black; */
+  cursor: move;
+  width: fit-content;
+}
+
+.draggable.dragging {
+  opacity: 0.5;
 }
 
 .setup-list {
@@ -186,6 +202,10 @@ section {
   flex-direction: column;
   margin-bottom: 1rem;
   position: relative;
+  /* background-color: #363941; */
+}
+.setup > div {
+  padding: 0.5rem;
 }
 .setup > span {
   top: 1rem;
